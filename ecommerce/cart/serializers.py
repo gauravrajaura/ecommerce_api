@@ -14,17 +14,21 @@ class UserSerializer(serializers.ModelSerializer):
         model=User
         fields="__all__"
 
-class CatergorySerializer(serializers.Serializer):
+class CatergorySerializer(serializers.ModelSerializer):
     #category_id=serializers.IntegerField()   
     name= serializers.CharField(max_length=100)
 
-    def create(self, validated_data):
+    class Meta:
+        model=Catergory
+        fields = "__all__" 
+
+    '''def create(self, validated_data):
         return Catergory.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.save()
-        return instance
+        return instance'''
 
 '''
 class ProductSerializer(serializers.ModelSerializer):
@@ -60,7 +64,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
    # category = CatergorySerializer()
-    category = serializers.StringRelatedField(read_only=True)
+    category = serializers.SlugRelatedField(slug_field="name",queryset=Catergory.objects.all())
 
     class Meta:
         model=Product
@@ -80,7 +84,9 @@ class CartSerializer(serializers.ModelSerializer):
 
 class ProductInCartSeializer(serializers.ModelSerializer):
     cart = serializers.StringRelatedField(read_only=True)
+    #cart = serializers.SlugRelatedField(slug_field="cart",queryset=Cart.objects.all())
     product = serializers.StringRelatedField(read_only=True)
+    #product = serializers.SlugRelatedField(slug_field="product",queryset=Product.objects.all())
 
     class Meta:
        model=ProductInCart

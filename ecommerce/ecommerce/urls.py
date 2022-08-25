@@ -16,8 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from cart import urls as category_urls
-
+from cart.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(category_urls)),
+    path('user/',UserGenericView.as_view()),
+    path('user/<int:user_id>',UserdetailGenericView.as_view()),
+    path('order/', OrderListApiView.as_view()),
+    path('order/<int:order_id>', OrderDetailApiView.as_view()),
+    path('category/', CategoryGenericView.as_view()),
+    path('category/<int:catergory_id>', OrderDetailApiView.as_view()),
+    path('product/',ProductGenericView.as_view()),
+    path('product/<int:product_id>', ProductdetailGenericView.as_view()),
+
+
+
 ]

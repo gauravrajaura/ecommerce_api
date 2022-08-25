@@ -25,8 +25,8 @@ router.register('Orderviewset',OrderViewSet,basename='order')
 urlpatterns=router.urls
 
 
-urlpatterns = [
+'''urlpatterns = [
    # path('/order', OrderListApiView.as_view()),
-   path('order/<int:order_id>/',OrderDetailApiView.as_view()),
+   #path('order/<int:order_id>/',OrderDetailApiView.as_view()),
 
-]
+]'''

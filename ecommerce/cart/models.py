@@ -8,17 +8,17 @@ from django.contrib.auth.models import User
 
 from django.utils import timezone
 
+from ecommerce.behaviours import StatusMixin,UUIDMixin
 
-
-class Catergory(models.Model):
+#class Catergory(StatusMixin,UUIDMixin):
+class Catergory(StatusMixin):
     #category_id=models.IntegerField(primary_key=True,default='null')
     name= models.CharField(max_length=100)
 
-    
     def __str__(self):
         return self.name
-
-class Product(models.Model):
+#class Product(StatusMixin,UUIDMixin):
+class Product(StatusMixin):
 
     product_id = models.IntegerField(primary_key=True)
     product_name = models.CharField(max_length=15)
@@ -29,8 +29,8 @@ class Product(models.Model):
     
     def __str__(self):
         return self.product_name
-
-class Cart(models.Model):
+#class Cart(StatusMixin,UUIDMixin):
+class Cart(StatusMixin):
     
     cart_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete = models.CASCADE,related_name="user")
@@ -39,7 +39,8 @@ class Cart(models.Model):
     def __str__(self):
         return (f"{self.user}'s cart")  
 
-class ProductInCart(models.Model):
+#class ProductInCart(StatusMixin,UUIDMixin):
+class ProductInCart(StatusMixin):
     
     class Meta:
         unique_together = (('cart', 'product'),)
@@ -49,8 +50,8 @@ class ProductInCart(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE,related_name="product")
     quantity = models.PositiveIntegerField()
 
-
-class Order(models.Model):
+#class Order(StatusMixin,UUIDMixin):
+class Order(StatusMixin):
     
     status_choices = (
         (1, 'Not Packed'),
